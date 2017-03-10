@@ -3,15 +3,15 @@ package com.aceegg.oklog
 import android.util.Log
 
 object OkLog {
-    @JvmStatic val LINE_TOP_LEFT = "╔════════════════"
-    @JvmStatic val LINE_TOP_RIGHT = "══════════════════════════════════════════════════════════════════════"
-    @JvmStatic val LINE_ONE_LINE = "══════════════════════════════════════════════════════════════════════════════════════════════════════"
-    @JvmStatic val LINE_BOTTOM_LINE = "╚══════════════════════════════════════════════════════════════════════════════════════════════════════"
-    @JvmStatic val LINE_END_WITH_NEW_LINE_START = "\r\n║\t"
-    @JvmStatic val LINE_END_WITH_NEW_LINE = "\r\n║"
+    @JvmStatic private val LINE_TOP_LEFT = "╔════════════════"
+    @JvmStatic private val LINE_TOP_RIGHT = "══════════════════════════════════════════════════════════════════════"
+    @JvmStatic private val LINE_ONE_LINE = "══════════════════════════════════════════════════════════════════════════════════════════════════════"
+    @JvmStatic private val LINE_BOTTOM_LINE = "╚══════════════════════════════════════════════════════════════════════════════════════════════════════"
+    @JvmStatic private val LINE_END_WITH_NEW_LINE_START = "\r\n║\t"
+    @JvmStatic private val LINE_END_WITH_NEW_LINE = "\r\n║"
 
     var mTag: String = "---[OkLog]---"
-    @JvmStatic var isPrint: Boolean = true
+    @JvmStatic private var isPrint: Boolean = true
 
     @JvmStatic fun init(isPrint : Boolean) {
         this.isPrint = isPrint
