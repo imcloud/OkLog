@@ -2,11 +2,6 @@ package com.aceegg.oklog
 
 import android.util.Log
 
-/**
- * OkLog
- *
- * Create by imcloud on 2017/03/10
- */
 object OkLog {
     @JvmStatic val LINE_TOP_LEFT = "╔════════════════"
     @JvmStatic val LINE_TOP_RIGHT = "══════════════════════════════════════════════════════════════════════"

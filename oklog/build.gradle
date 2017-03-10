@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.novoda.bintray-release'
 
 android {
   compileSdkVersion 25
@@ -39,15 +38,4 @@ dependencies {
 }
 repositories {
   mavenCentral()
-}
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-publish {
-
-  userOrg = properties.getProperty("jcenter.userOrg")
-  groupId = properties.getProperty("jcenter.groupId")
-  artifactId = properties.getProperty("jcenter.artifactId")
-  publishVersion = properties.getProperty("jcenter.publishVersion")
-  desc = properties.getProperty("jcenter.desc")
-  website = properties.getProperty("jcenter.website")
 }
