@@ -1,4 +1,4 @@
-package com.aceegg.oklog.library
+package com.aceegg.oklog
 
 import android.util.Log
 
@@ -89,11 +89,11 @@ object OkLog {
         var index = 0
         // 寻找调用此library的位置
         var name: String = stackTraceElements[index].className
-        while (OkLog.javaClass.name != name) {
+        while (javaClass.name != name) {
             index++
             name = stackTraceElements[index].className
         }
-        while (OkLog.javaClass.name == name) {
+        while (javaClass.name == name) {
             index++
             name = stackTraceElements[index].className
         }

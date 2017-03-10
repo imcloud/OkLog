@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/OkLog.iml" filepath="$PROJECT_DIR$/OkLog.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oklog/oklog.iml" filepath="$PROJECT_DIR$/oklog/oklog.iml" />
     </modules>
   </component>
 </project>
