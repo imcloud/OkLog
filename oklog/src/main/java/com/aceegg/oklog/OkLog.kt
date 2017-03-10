@@ -4,9 +4,8 @@ import android.util.Log
 
 /**
  * OkLog
- * <br />
  *
- * Created by imcloud on 2017/3/8.
+ * Create by imcloud on 2017/03/10
  */
 object OkLog {
     @JvmStatic val LINE_TOP_LEFT = "╔════════════════"
