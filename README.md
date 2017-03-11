@@ -2,7 +2,7 @@
 log util for android
 
 # environment
-about gradle and sdk
+### about gradle and sdk
 ```gradle
   // app
   compileSdkVersion 25
@@ -10,8 +10,13 @@ about gradle and sdk
   //project
   classpath 'com.android.tools.build:gradle:2.3.0'
 ```
-> kotlin plugin!!!
+### Android studio plugin
+`kotlin plugin1.1.0+`
 
+# 导入
+```gradle
+compile 'com.accegg.oklog:oklog:0.1.2'
+```
 # Usage
 any where
 ```java
