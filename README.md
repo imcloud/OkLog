@@ -15,7 +15,7 @@ log util for android
 
 # 导入
 ```gradle
-compile 'com.accegg.oklog:oklog:0.1.2'
+compile 'com.accegg.oklog:oklog:0.1.3'
 ```
 # Usage
 any where
