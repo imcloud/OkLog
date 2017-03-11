@@ -28,3 +28,5 @@ disable print log,in your custom application
 ```
 # 预览
 ![](https://github.com/imcloud/OkLog/blob/master/Screenshot/log.png)
+# Blog
+[https://aceegg.com](https://aceegg.com)
