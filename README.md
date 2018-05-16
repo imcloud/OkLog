@@ -1,17 +1,5 @@
 # OkLog
-log util for android
-
-# environment
-### about gradle and sdk
-```gradle
-  // app
-  compileSdkVersion 25
-  buildToolsVersion "25.0.2"
-  //project
-  classpath 'com.android.tools.build:gradle:2.3.0'
-```
-### Android studio plugin
-`kotlin plugin1.1.0+`
+log util for android, support kotlin
 
 # 导入
 ```gradle
@@ -22,9 +10,28 @@ any where
 ```java
   OkLog.v(log);
 ```
-disable print log,in your custom application
+
+if you want configure, initialize before call other method
 ```java
-  OkLog.init(false);
+        // init in java
+        ConfigureBuilder builder = new ConfigureBuilder(BuildConfig.DEBUG);
+        builder.setMethodCount(3);
+        builder.setShowMethod(true);
+        builder.setShowThread(true);
+        builder.showTime(true);
+        Configure configure = builder.build();
+        OkLog.init(configure);
+        
+        /**
+         * how to init in kotlin
+         */
+        OkLog.init(with(OkLog.ConfigureBuilder(BuildConfig.DEBUG), {
+            showMethod(true)
+            showThread(true)
+            showTime(true)
+            methodCount(2)
+            build()
+        }))
 ```
 # 预览
 ![](https://github.com/imcloud/OkLog/blob/master/Screenshot/log.png)
