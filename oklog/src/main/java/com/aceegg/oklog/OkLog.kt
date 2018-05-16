@@ -61,7 +61,6 @@ object OkLog {
 
     private fun createLogBody(): String {
         val builder = StringBuilder()
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss:")
         if (config.showTime) {
             builder.append(Date().toString())
         }
