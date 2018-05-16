@@ -3,7 +3,7 @@ log util for android, support kotlin
 
 # 导入
 ```gradle
-compile 'com.accegg.oklog:oklog:0.1.3'
+compile 'com.accegg.oklog:oklog:0.2.0'
 ```
 # Usage
 any where
