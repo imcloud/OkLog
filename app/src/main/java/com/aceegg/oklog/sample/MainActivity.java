@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 import com.aceegg.oklog.OkLog;
+import com.aceegg.oklog.OkLog.Configure;
+import com.aceegg.oklog.OkLog.ConfigureBuilder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        // init in java
+        ConfigureBuilder builder = new ConfigureBuilder(BuildConfig.DEBUG);
+        builder.setMethodCount(3);
+        builder.setShowMethod(true);
+        builder.setShowThread(true);
+        builder.showTime(true);
+        Configure configure = builder.build();
+        OkLog.init(configure);
         OkLog.v("Hello world!");
     }
 }
