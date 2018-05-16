@@ -1,84 +1,111 @@
 package com.aceegg.oklog
 
 import android.util.Log
+import java.text.SimpleDateFormat
+import java.util.*
 
+@Suppress("unused")
 object OkLog {
-    @JvmStatic private val LINE_TOP_LEFT = "╔════════════════"
-    @JvmStatic private val LINE_TOP_RIGHT = "══════════════════════════════════════════════════════════════════════"
-    @JvmStatic private val LINE_ONE_LINE = "══════════════════════════════════════════════════════════════════════════════════════════════════════"
-    @JvmStatic private val LINE_BOTTOM_LINE = "╚══════════════════════════════════════════════════════════════════════════════════════════════════════"
-    @JvmStatic private val LINE_END_WITH_NEW_LINE_START = "\r\n║\t"
-    @JvmStatic private val LINE_END_WITH_NEW_LINE = "\r\n║"
+    private const val ARROW = "\t<--\t"
+    private const val LINE_TOP_LINE = "┏━━━━━━━━━━┓"
+    private const val LINE_CENTER_LINE = "┣━━━━━━━━━━┫"
+    private const val LINE_BOTTOM_LINE = "┗━━━━━━━━━━┛"
+    private const val NEW_LINE_START = "┃\t"
+    private const val LINE_END = "\t┃\t"
 
-    var mTag: String = "---[OkLog]---"
-    @JvmStatic private var isPrint: Boolean = true
+    private var mTag: String = "--OkLog--"
+    @JvmStatic
+    private var isPrint: Boolean = true
 
-    @JvmStatic fun init(isPrint : Boolean) {
-        this.isPrint = isPrint
+    private var config: Configure
+
+    init {
+        config = Configure(true, true, true, 1, false)
     }
 
-    @JvmStatic fun v(log: Any?) {
+    @JvmStatic
+    fun init(configure: Configure) {
+        this.config = configure
+    }
+
+    @JvmStatic
+    fun v(log: Any?) {
         print(log, Log.VERBOSE)
     }
 
-    @JvmStatic fun d(log: Any?) {
+    @JvmStatic
+    fun d(log: Any?) {
         print(log, Log.DEBUG)
     }
 
-    @JvmStatic fun i(log: Any?) {
+    @JvmStatic
+    fun i(log: Any?) {
         print(log, Log.INFO)
     }
 
-    @JvmStatic fun w(log: Any?) {
+    @JvmStatic
+    fun w(log: Any?) {
         print(log, Log.WARN)
     }
 
-    @JvmStatic fun e(log: Any?) {
+    @JvmStatic
+    fun e(log: Any?) {
         print(log, Log.ERROR)
     }
 
-    fun print(log: Any?, level: Int) {
-        if (isPrint) {
+    private fun print(log: Any?, level: Int) {
+        if (config.enable) {
             Log.println(level, mTag, String.format(createLogBody(), log))
         }
     }
 
-    fun createLogBody(): String {
+    private fun createLogBody(): String {
         val builder = StringBuilder()
-        // 线程信息
-        builder
-            .append(" \r\n")
-            .append(LINE_TOP_LEFT)
-            .append(" [Thread: " + Thread.currentThread().name + "] ")
-            .append(LINE_TOP_RIGHT)
-            .append(LINE_END_WITH_NEW_LINE_START)
-        // 调用内存栈信息
-        val stackTraceElements = Thread.currentThread().stackTrace
-        val stackOffset = getStackOffset(stackTraceElements)
-        for (i in stackOffset until stackOffset+3) {
-            for (j in stackOffset until i) {
-                builder.append("\t")
-            }
-            if (i != stackOffset) {
-                builder.append("∟\t")
-            }
-            builder
-                .append(stackTraceElements[i].className)
-                .append("." + stackTraceElements[i].methodName + " (")
-                .append(stackTraceElements[i].fileName + ":")
-                .append(stackTraceElements[i].lineNumber)
-                .append(")" + LINE_END_WITH_NEW_LINE)
+        if (config.showTime) {
+            builder.append(Date().toString())
         }
+        builder.append("\r\n").append(LINE_TOP_LINE + "\r\n")
+        // 线程信息
+        if (config.showThread) {
+            builder
+                    .append(NEW_LINE_START)
+                    .append("Thread")
+                    .append(LINE_END)
+                    .append(Thread.currentThread().name)
+                    .append("\r\n" + LINE_CENTER_LINE + "\r\n")
+        }
+        // 调用内存栈信息
+        if (config.showMethod) {
+            builder
+                    .append(NEW_LINE_START)
+                    .append("Method")
+                    .append(LINE_END)
+            val stackTraceElements = Thread.currentThread().stackTrace
+            val stackOffset = getStackOffset(stackTraceElements)
+            for (i in stackOffset until stackOffset + config.methodCount) {
+                if (i != stackOffset) {
+                    builder.append(ARROW)
+                }
+                builder
+                        .append(stackTraceElements[i].className)
+                        .append("." + stackTraceElements[i].methodName + " (")
+                        .append(stackTraceElements[i].fileName + ":")
+                        .append(stackTraceElements[i].lineNumber)
+                        .append(")")
+            }
+            builder.append("\r\n" + LINE_CENTER_LINE + "\r\n")
+        }
+
         // 主体信息
         builder
-            .append(LINE_ONE_LINE + "\r\n\r\n\t")
-            .append("%s")
-            .append("\r\n\r\n")
-            .append(LINE_BOTTOM_LINE)
+                .append(NEW_LINE_START)
+                .append(" Log  $LINE_END")
+                .append("%s")
+                .append("\r\n" + LINE_BOTTOM_LINE)
         return builder.toString()
     }
 
-    fun getStackOffset(stackTraceElements: Array<StackTraceElement>): Int {
+    private fun getStackOffset(stackTraceElements: Array<StackTraceElement>): Int {
 
         var index = 0
         // 寻找调用此library的位置
@@ -93,4 +120,38 @@ object OkLog {
         }
         return index
     }
+
+    class ConfigureBuilder(val enable: Boolean) {
+
+        var showThread = true
+        var showMethod = true
+        var methodCount = 1
+        var showTime = false
+
+        fun showThread(show: Boolean) {
+            this.showThread = show
+        }
+
+        fun showMethod(show: Boolean) {
+            this.showMethod = show
+        }
+
+        fun showTime(show: Boolean) {
+            this.showTime = show
+        }
+
+        fun methodCount(count: Int) {
+            this.methodCount = Math.max(1, count)
+        }
+
+        fun build(): Configure {
+            return Configure(enable, showThread, showMethod, methodCount, showTime)
+        }
+    }
+
+    class Configure internal constructor(val enable: Boolean,
+                                         val showThread: Boolean,
+                                         val showMethod: Boolean,
+                                         val methodCount: Int,
+                                         val showTime: Boolean)
 }
