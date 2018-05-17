@@ -3,12 +3,16 @@ log util for android, support kotlin
 
 # 导入
 ```gradle
-compile 'com.accegg.oklog:oklog:0.2.0'
+compile 'com.accegg.oklog:oklog:0.2.1'
 ```
 # Usage
 any where
 ```java
   OkLog.v(log);
+  OkLog.i(log);
+  OkLog.d(log);
+  OkLog.w(log);
+  OkLog.e(log);
 ```
 
 if you want configure, initialize before call other method
